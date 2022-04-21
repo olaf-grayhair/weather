@@ -36,7 +36,6 @@ def weather_data(name):
     #GUI INTERFACE
 description, temp, img_data, city, name = weather_data('kharkov')
 
-
 layout = [
           [sg.Input(key='-INPUT-', size=30), sg.Button('Ok')],
           [sg.Text(city, font=('Philosopher, 26'), key='-CITY-')],
@@ -45,12 +44,11 @@ layout = [
           [sg.Text(size=(40,1), key='-OUTPUT-')],
           # [sg.Button('Ok'), sg.Button('Quit')]
 ]
-
 # Create the window
 window = sg.Window('Weather', layout)
 # Display and interact with the Window using an Event Loop
 while True:
-    event, values = window.read()
+    event, values = window.read(timeout=30000)
     # See if user wants to quit or window was closed
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
@@ -61,12 +59,7 @@ while True:
     window['-TEMP-'].update(f"{temp} ℃")
     window['-IMG-'].update(img_data)
     window['-DESCRIPTION-'].update(description)
-    # schedule.every(30).seconds.do(weather_data)
-    #
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
 
-# Finish up by removing from the screen
 window.close()
+
 

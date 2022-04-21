@@ -20,7 +20,7 @@ def cities():
     # else:
     #     print('bad city')
 
-def weather_data():
+def weather_data(city_name):
     res = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q='
                        f'{city_name}&units=metric&appid={API}')
     result = res.json()
@@ -40,10 +40,10 @@ def weather_data():
     img_data = response.content
     return description, temp, img_data, city
 
-description, temp, img_data, city = weather_data()
+description, temp, img_data, city = weather_data('london')
 
 
-schedule.every(30).seconds.do(weather_data)
+schedule.every(30).seconds.do(weather_data, 'kharkov')
 
 while True:
     schedule.run_pending()
